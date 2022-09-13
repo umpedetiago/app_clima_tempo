@@ -1,4 +1,4 @@
-import 'package:app_clima_tempo/modules/src/domain/entities/forecast_entity.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/entities/forecast_entity.dart';
 
 class WeatherEntity {
   final String? wind;

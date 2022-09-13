@@ -1,7 +1,7 @@
-import 'package:app_clima_tempo/modules/src/domain/errors/errors.dart';
-import 'package:app_clima_tempo/modules/src/domain/entities/weather_entity.dart';
-import 'package:app_clima_tempo/modules/src/domain/repositories/wheather_repository.dart';
-import 'package:app_clima_tempo/modules/src/infra/datasource/weather_datasource.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/repositories/wheather_repository.dart';
+import 'package:app_clima_tempo/src/modules/weather/infra/datasource/weather_datasource.dart';
 import 'package:fpdart/src/either.dart';
 
 class WeatherRepositoryImpl extends WeatherRepository {

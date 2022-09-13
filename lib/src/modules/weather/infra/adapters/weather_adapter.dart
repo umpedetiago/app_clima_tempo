@@ -1,4 +1,4 @@
-import 'package:app_clima_tempo/modules/src/domain/entities/weather_entity.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
 
 class WeatherAdapter {
   static WeatherEntity fromJson(dynamic data) {

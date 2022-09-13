@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:app_clima_tempo/modules/src/domain/entities/weather_entity.dart';
-import 'package:app_clima_tempo/modules/src/domain/repositories/wheather_repository.dart';
-import 'package:app_clima_tempo/modules/src/domain/usecases/get_weather_by_city_usecase.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/repositories/wheather_repository.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/usecases/get_weather_by_city_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';

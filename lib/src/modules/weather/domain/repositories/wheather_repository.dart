@@ -5,5 +5,5 @@ import 'package:fpdart/fpdart.dart';
 abstract class WeatherRepository {
   WeatherRepository();
 
-  Future<Either<WeatherException, WeatherEntity>> getWeather();
+  Future<Either<InvalidCityError, WeatherEntity>> getWeather(String? endpoint);
 }

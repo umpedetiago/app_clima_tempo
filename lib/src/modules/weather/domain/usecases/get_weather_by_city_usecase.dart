@@ -4,7 +4,7 @@ import 'package:app_clima_tempo/src/modules/weather/domain/repositories/wheather
 import 'package:fpdart/fpdart.dart';
 
 abstract class GetWeatherByCityUsecase {
-  Future<Either<WeatherException, WeatherEntity>> call();
+  Future<Either<InvalidCityError, WeatherEntity>> call([String? params]);
 }
 
 class GetWeatherByCityUsecaseImpl implements GetWeatherByCityUsecase {
@@ -12,7 +12,10 @@ class GetWeatherByCityUsecaseImpl implements GetWeatherByCityUsecase {
 
   GetWeatherByCityUsecaseImpl(this.repository);
   @override
-  Future<Either<WeatherException, WeatherEntity>> call() async {
-    return await repository.getWeather();
+  Future<Either<InvalidCityError, WeatherEntity>> call([String? params]) async {
+    if (params == null) {
+      return Left(InvalidCityError('Cidade invalida'));
+    }
+    return await repository.getWeather(params);
   }
 }

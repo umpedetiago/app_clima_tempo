@@ -1,11 +1,11 @@
 class ForecastEntity {
-  final String? day;
-  final String? temperature;
-  final String? wind;
+  final String day;
+  final String temperature;
+  final String wind;
 
   ForecastEntity({
-    this.day,
-    this.temperature,
-    this.wind,
+    required this.day,
+    required this.temperature,
+    required this.wind,
   });
 }

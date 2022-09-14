@@ -8,11 +8,12 @@ class WeatherDatasourceImpl implements WeatherDatasource {
   WeatherDatasourceImpl(this.uno);
 
   @override
-  Future getWeather({String? endPoint}) {
+  Future getWeather({required String endPoint}) async {
     try {
       final response =
-          uno.get('https://goweather.herokuapp.com/weather/' + endPoint!);
-      return response;
+          await uno.get('https://goweather.herokuapp.com/weather/' + endPoint);
+
+      return response.data;
     } catch (e) {
       throw WeatherExceptionDatasource(e.toString());
     }

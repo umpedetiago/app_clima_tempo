@@ -1,3 +1,4 @@
+import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
 import 'package:app_clima_tempo/src/modules/weather/presenter/stores/weather_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,34 +13,37 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   final store = Modular.get<WeatherStore>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Clima'),
-      ),
-      body: ScopedBuilder(
-        store: store,
-        onError: (context, error) => Text(error.toString()),
-        onLoading: (context) => const Center(
-          child: CircularProgressIndicator(),
+        appBar: AppBar(
+          title: const Text('Clima'),
         ),
-        onState: (context, state) {
-          return Column(children: [
-            TextFormField(),
-            ElevatedButton(
-                onPressed: store.getWeatherByCityUsecase,
-                child: const Text('Pesquisar')),
-            Container(
-              width: 400,
-              height: 400,
-              color: Colors.amber,
-              child: Column(
-                  children: [Text(store.state.description ?? 'Texto teste')]),
-            )
-          ]);
-        },
-      ),
-    );
+        body: Column(children: [
+          TextFormField(),
+          ElevatedButton(
+              onPressed: () {
+                store.fetchWeather();
+              },
+              child: const Text('Pesquisar')),
+          ScopedBuilder(
+              store: store,
+              onError: (_, error) => Text(error.toString()),
+              onLoading: (_) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+              onState: (_, state) {
+                if (store.state.description == null) {
+                  return const Text('Insira sua Cidade');
+                }
+                return Container(
+                  width: 400,
+                  height: 400,
+                  color: Colors.amber,
+                  child: Column(children: [Text(store.state.description!)]),
+                );
+              })
+        ]));
   }
 }

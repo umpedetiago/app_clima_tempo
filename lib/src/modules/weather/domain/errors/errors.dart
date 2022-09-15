@@ -5,8 +5,8 @@ abstract class WeatherException {
   const WeatherException(this.message, [this.stacktrace]);
 }
 
-class InvalidCityError extends WeatherException {
-  InvalidCityError(String message) : super(message);
+class InvalidCityException extends WeatherException {
+  InvalidCityException(String message) : super(message);
 }
 
 class WeatherExceptionDatasource extends WeatherException {

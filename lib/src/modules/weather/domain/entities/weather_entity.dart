@@ -4,7 +4,7 @@ class WeatherEntity {
   final String? wind;
   final String? temperature;
   final String? description;
-  final List<ForecastEntity?>? forecast;
+  final List<ForecastEntity>? forecast;
 
   WeatherEntity({
     this.forecast,

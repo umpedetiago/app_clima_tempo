@@ -1,6 +1,6 @@
+import 'package:app_clima_tempo/src/modules/weather/infra/adapters/weather_adapter.dart';
 // ignore: implementation_imports
-import 'package:fpdart/src/either.dart';
-
+import 'package:dartz/dartz.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/repositories/wheather_repository.dart';
@@ -13,13 +13,14 @@ class WeatherRepositoryImpl extends WeatherRepository {
     this.weatherDatasorce,
   );
   @override
-  Future<Either<InvalidCityError, WeatherEntity>> getWeather(endpoint) async {
+  Future<Either<InvalidCityException, WeatherEntity>> getWeather(city) async {
     try {
-      final result = await weatherDatasorce.getWeather(endPoint: endpoint!);
+      final result = await weatherDatasorce.getWeather(city);
+      final weather = WeatherAdapter.fromJson(result);
 
-      return result;
+      return right(weather);
     } on WeatherException catch (e) {
-      return Left(InvalidCityError(e.message));
+      return left(InvalidCityException(e.message));
     }
   }
 }

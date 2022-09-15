@@ -1,9 +1,9 @@
 import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
-import 'package:fpdart/fpdart.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class WeatherRepository {
   WeatherRepository();
 
-  Future<Either<InvalidCityError, WeatherEntity>> getWeather(String? endpoint);
+  Future<Either<InvalidCityException, WeatherEntity>> getWeather(String city);
 }

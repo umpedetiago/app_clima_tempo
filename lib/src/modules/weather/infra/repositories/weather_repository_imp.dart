@@ -6,14 +6,14 @@ import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/repositories/wheather_repository.dart';
 import 'package:app_clima_tempo/src/modules/weather/infra/datasource/weather_datasource.dart';
 
-class WeatherRepositoryImpl extends WeatherRepository {
+class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherDatasource weatherDatasorce;
 
   WeatherRepositoryImpl(
     this.weatherDatasorce,
   );
   @override
-  Future<Either<InvalidCityException, WeatherEntity>> getWeather(city) async {
+  Future<Either<WeatherException, WeatherEntity>> getWeather(city) async {
     try {
       final result = await weatherDatasorce.getWeather(city);
       final weather = WeatherAdapter.fromJson(result);

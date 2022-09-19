@@ -19,9 +19,6 @@ void main() {
     expect(result.fold(id, id), isA<WeatherEntity>());
   });
   test('Deve retornar um InvalidCityError', (() async {
-    when(
-      () => repository.getWeather(any()),
-    ).thenAnswer((_) async => right(WeatherEntity()));
     var result = await usecase(null);
     expect(result.fold(id, id), isA<InvalidCityException>());
     result = await usecase('');

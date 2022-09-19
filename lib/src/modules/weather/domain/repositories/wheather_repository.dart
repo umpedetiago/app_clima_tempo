@@ -5,5 +5,5 @@ import 'package:dartz/dartz.dart';
 abstract class WeatherRepository {
   WeatherRepository();
 
-  Future<Either<InvalidCityException, WeatherEntity>> getWeather(String city);
+  Future<Either<WeatherException, WeatherEntity>> getWeather(String city);
 }

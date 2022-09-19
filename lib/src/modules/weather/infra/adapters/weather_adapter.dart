@@ -7,7 +7,8 @@ class WeatherAdapter {
         description: data['description'],
         temperature: data['temperature'],
         wind: data['wind'],
-        forecast:
-            [].map((e) => ForecastAdapter.fromJson(data['forecast'])).toList());
+        forecast: (data['forecast'] as List)
+            .map((e) => ForecastAdapter.fromJson(e))
+            .toList());
   }
 }

@@ -4,7 +4,7 @@ import 'package:app_clima_tempo/src/modules/weather/domain/repositories/wheather
 import 'package:dartz/dartz.dart';
 
 abstract class GetWeatherByCityUsecase {
-  Future<Either<InvalidCityException, WeatherEntity>> call([String? city]);
+  Future<Either<WeatherException, WeatherEntity>> call([String? city]);
 }
 
 class GetWeatherByCityUsecaseImpl implements GetWeatherByCityUsecase {
@@ -12,8 +12,7 @@ class GetWeatherByCityUsecaseImpl implements GetWeatherByCityUsecase {
 
   GetWeatherByCityUsecaseImpl(this.repository);
   @override
-  Future<Either<InvalidCityException, WeatherEntity>> call(
-      [String? city]) async {
+  Future<Either<WeatherException, WeatherEntity>> call([String? city]) async {
     if (city == null || city.isEmpty) {
       return Left(InvalidCityException('Cidade invalida'));
     }

@@ -5,7 +5,7 @@ class ForecastAdapter {
     return ForecastEntity(
       day: data['day'],
       temperature: data['temperature'],
-      wind: data['data'],
+      wind: data['wind'],
     );
   }
 }

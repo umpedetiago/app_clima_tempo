@@ -1,3 +1,4 @@
+import 'package:app_clima_tempo/localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../stores/weather_store.dart';
@@ -18,14 +19,30 @@ class WeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text('Weather at ' + city),
-        Text('Wind: ' + wind),
-        Flexible(flex: 2, child: Text('Description:' + description)),
-        Text('Temperature:' + temperature),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Text(AppLocalizations.of(context)!.weatherAt + ' ' + city),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(AppLocalizations.of(context)!.wind + ': ' + wind),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+                AppLocalizations.of(context)!.description + ':' + description),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 16),
+            child: Text(AppLocalizations.of(context)!.temp + ':' + temperature),
+          ),
+        ],
+      ),
     );
   }
 }

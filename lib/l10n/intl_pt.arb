@@ -1,0 +1,11 @@
+{"@@locale": "pt",
+"wind": "Vento",
+"temp": "Temp",
+"day": "Dia",
+"description": "Descrição",
+"search":"Pesquisar",
+"errorNotFoundCity":"Cidade não encontrada",
+"weather":"Clima",
+"inputCity": "Insira uma cidade",
+"weatherAt": "Clima em"
+}

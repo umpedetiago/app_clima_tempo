@@ -12,12 +12,10 @@ class WeatherDatasourceImpl implements WeatherDatasource {
     final response =
         await uno.get('https://goweather.herokuapp.com/weather/' + city);
 
-    print(response.status);
-
     if (response.status == 200) {
       return response.data;
     } else {
-      WeatherExceptionDatasource('Erro na requisição');
+      throw WeatherExceptionDatasource('Erro na requisição');
     }
   }
 }

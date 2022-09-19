@@ -1,0 +1,11 @@
+{"@@locale": "en",
+"wind": "Wind",
+"temp": "Temp",
+"day": "Day",
+"description": "Description",
+"search":"Search",
+"errorNotFoundCity":"Not Found city",
+"weather":"Weather",
+"inputCity":"Input a city",
+"weatherAt":"Weather at"
+}

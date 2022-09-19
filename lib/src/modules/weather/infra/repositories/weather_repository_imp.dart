@@ -20,7 +20,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
       return right(weather);
     } on WeatherException catch (e) {
-      return left(InvalidCityException(e.message));
+      return left(WeatherExceptionDatasource(e.message));
     }
   }
 }

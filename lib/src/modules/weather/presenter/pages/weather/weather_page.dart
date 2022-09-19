@@ -1,3 +1,4 @@
+import 'package:app_clima_tempo/localization.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
 import 'package:app_clima_tempo/src/modules/weather/presenter/pages/weather/widget/weather_textfield.dart';
 import 'package:app_clima_tempo/src/modules/weather/presenter/pages/weather/widget/weather_widget.dart';
@@ -13,11 +14,11 @@ class WeatherPage extends StatefulWidget {
   State<WeatherPage> createState() => _WeatherPageState();
 }
 
-Widget _buildError(WeatherException e) {
+Widget _buildError(WeatherException e, BuildContext context) {
   if (e is InvalidCityException) {
-    return const Center(
+    return Center(
       child: Text(
-        'cidade não encontrada',
+        AppLocalizations.of(context)!.errorNotFoundCity,
       ),
     );
   }
@@ -31,112 +32,121 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(children: [
-            const SizedBox(
-              height: 50,
-            ),
-            Flexible(
-                flex: 1,
-                child: Container(
-                  margin: const EdgeInsets.all(16),
-                  height: 100,
-                  width: 800,
-                  child: const Text(
-                    'Climão',
-                    style: TextStyle(
-                      fontSize: 50,
-                      color: Color.fromARGB(255, 42, 132, 205),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                )),
-            Flexible(
-              flex: 1,
-              child: SizedBox(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(children: [
+        const SizedBox(
+          height: 50,
+        ),
+        Flexible(
+            flex: 1,
+            child: SafeArea(
+              child: Container(
+                margin: const EdgeInsets.all(16),
+                height: 100,
                 width: 800,
-                child: WeatherTextField(textController: _textController),
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Flexible(
-                child: SizedBox(
-                  width: 250,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        store.fetchWeather(_textController.text);
-                      },
-                      child: const Text('Pesquisar')),
+                child: Text(
+                  AppLocalizations.of(context)!.weather,
+                  style: const TextStyle(
+                    fontSize: 50,
+                    color: Color.fromARGB(255, 42, 132, 205),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ]),
-            const SizedBox(
-              height: 25,
+            )),
+        Flexible(
+          flex: 1,
+          child: SizedBox(
+            width: 800,
+            child: WeatherTextField(textController: _textController),
+          ),
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Flexible(
+            child: SizedBox(
+              width: 250,
+              child: ElevatedButton(
+                  onPressed: () => store.fetchWeather(_textController.text),
+                  child: Text(AppLocalizations.of(context)!.search)),
             ),
-            ScopedBuilder(
-                store: store,
-                onError: (_, e) => _buildError(e as WeatherException),
-                onLoading: (_) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                onState: (_, state) {
-                  if (store.state.description == null) {
-                    return const Text('Insira sua Cidade');
-                  }
-                  return Flexible(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Container(
-                        width: 500,
-                        height: 500,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Card(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: WeatherWidget(
-                                  city: _textController.text,
-                                  wind: store.state.wind!,
-                                  description: store.state.description!,
-                                  temperature: store.state.temperature!,
-                                ),
-                              ),
+          ),
+        ]),
+        const SizedBox(
+          height: 25,
+        ),
+        ScopedBuilder(
+            store: store,
+            onError: (_, e) => _buildError(e as WeatherException, context),
+            onLoading: (_) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+            onState: (_, state) {
+              if (store.state.description == null) {
+                return const SizedBox.shrink();
+              }
+              return Flexible(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Container(
+                    width: 500,
+                    height: 500,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: WeatherWidget(
+                              city: _textController.text,
+                              wind: store.state.wind!,
+                              description: store.state.description!,
+                              temperature: store.state.temperature!,
                             ),
-                            Flexible(
-                              flex: 1,
-                              child: Column(children: [
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: store.state.forecast!.length,
-                                    itemBuilder: (_, index) {
-                                      final item = store.state.forecast![index];
-                                      return Card(
-                                        child: ListTile(
-                                          title: Text(
-                                              'Temp: ' + item.temperature!),
-                                          leading: Text('Day: ' + item.day!),
-                                          subtitle: Text('Wind: ' + item.wind!),
-                                        ),
-                                      );
-                                    }),
-                              ]),
-                            )
-                          ],
+                          ),
                         ),
-                      ),
+                        Flexible(
+                          flex: 1,
+                          child: SingleChildScrollView(
+                            child: Column(children: [
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: store.state.forecast!.length,
+                                  itemBuilder: (_, index) {
+                                    final item = store.state.forecast![index];
+                                    return Card(
+                                      child: ListTile(
+                                        title: Text(
+                                            AppLocalizations.of(context)!.temp +
+                                                ': ' +
+                                                item.temperature!),
+                                        leading: Text(
+                                            AppLocalizations.of(context)!.day +
+                                                ': ' +
+                                                item.day!),
+                                        subtitle: Text(
+                                            AppLocalizations.of(context)!.wind +
+                                                ': ' +
+                                                item.wind!),
+                                      ),
+                                    );
+                                  }),
+                            ]),
+                          ),
+                        )
+                      ],
                     ),
-                  );
-                })
-          ]),
-        ));
+                  ),
+                ),
+              );
+            })
+      ]),
+    ));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:app_clima_tempo/localization.dart';
 import 'package:flutter/material.dart';
 
 class WeatherTextField extends StatelessWidget {
@@ -12,8 +13,9 @@ class WeatherTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        hintText: AppLocalizations.of(context)!.inputCity,
       ),
       controller: _textController,
     );

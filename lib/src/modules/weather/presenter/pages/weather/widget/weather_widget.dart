@@ -1,8 +1,6 @@
 import 'package:app_clima_tempo/localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../stores/weather_store.dart';
-
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({
     Key? key,

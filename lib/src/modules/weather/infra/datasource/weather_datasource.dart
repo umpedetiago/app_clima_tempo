@@ -1,3 +1,3 @@
 abstract class WeatherDatasource {
-  Future getWeather(String city);
+  Future<Map<String, dynamic>> getWeather(String city);
 }

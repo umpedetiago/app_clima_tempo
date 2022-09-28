@@ -2,7 +2,7 @@ import 'package:app_clima_tempo/src/modules/weather/infra/adapters/weather_adapt
 // ignore: implementation_imports
 import 'package:dartz/dartz.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
-import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/errors/weather_exception.dart';
 import 'package:app_clima_tempo/src/modules/weather/domain/repositories/wheather_repository.dart';
 import 'package:app_clima_tempo/src/modules/weather/infra/datasource/weather_datasource.dart';
 
@@ -20,7 +20,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
       return right(weather);
     } on WeatherException catch (e) {
-      return left(WeatherExceptionDatasource(e.message));
+      return left(e);
     }
   }
 }

@@ -1,5 +1,7 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:app_clima_tempo/localization.dart';
-import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/errors/weather_exception.dart';
 import 'package:app_clima_tempo/src/modules/weather/presenter/pages/weather/widget/weather_textfield.dart';
 import 'package:app_clima_tempo/src/modules/weather/presenter/pages/weather/widget/weather_widget.dart';
 import 'package:app_clima_tempo/src/modules/weather/presenter/stores/weather_store.dart';
@@ -22,7 +24,7 @@ Widget _buildError(WeatherException e, BuildContext context) {
       ),
     );
   }
-  return SizedBox.shrink();
+  return const SizedBox.shrink();
 }
 
 class _WeatherPageState extends State<WeatherPage> {
@@ -39,24 +41,22 @@ class _WeatherPageState extends State<WeatherPage> {
           height: 50,
         ),
         Flexible(
-            flex: 1,
             child: SafeArea(
-              child: Container(
-                margin: const EdgeInsets.all(16),
-                height: 100,
-                width: 800,
-                child: Text(
-                  AppLocalizations.of(context)!.weather,
-                  style: const TextStyle(
-                    fontSize: 50,
-                    color: Color.fromARGB(255, 42, 132, 205),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+          child: Container(
+            margin: const EdgeInsets.all(16),
+            height: 100,
+            width: 800,
+            child: Text(
+              AppLocalizations.of(context)!.weather,
+              style: const TextStyle(
+                fontSize: 50,
+                color: Color.fromARGB(255, 42, 132, 205),
               ),
-            )),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        )),
         Flexible(
-          flex: 1,
           child: SizedBox(
             width: 800,
             child: WeatherTextField(textController: _textController),
@@ -85,7 +85,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   child: CircularProgressIndicator(),
                 ),
             onState: (_, state) {
-              if (store.state.description == null) {
+              if (store.state.description.isEmpty) {
                 return const SizedBox.shrink();
               }
               return Flexible(
@@ -105,35 +105,34 @@ class _WeatherPageState extends State<WeatherPage> {
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: WeatherWidget(
                               city: _textController.text,
-                              wind: store.state.wind!,
-                              description: store.state.description!,
-                              temperature: store.state.temperature!,
+                              wind: store.state.wind,
+                              description: store.state.description,
+                              temperature: store.state.temperature,
                             ),
                           ),
                         ),
                         Flexible(
-                          flex: 1,
                           child: SingleChildScrollView(
                             child: Column(children: [
                               ListView.builder(
                                   shrinkWrap: true,
-                                  itemCount: store.state.forecast!.length,
+                                  itemCount: store.state.forecast.length,
                                   itemBuilder: (_, index) {
-                                    final item = store.state.forecast![index];
+                                    final item = store.state.forecast[index];
                                     return Card(
                                       child: ListTile(
                                         title: Text(
                                             AppLocalizations.of(context)!.temp +
                                                 ': ' +
-                                                item.temperature!),
+                                                item.temperature),
                                         leading: Text(
                                             AppLocalizations.of(context)!.day +
                                                 ': ' +
-                                                item.day!),
+                                                item.day),
                                         subtitle: Text(
                                             AppLocalizations.of(context)!.wind +
                                                 ': ' +
-                                                item.wind!),
+                                                item.wind),
                                       ),
                                     );
                                   }),

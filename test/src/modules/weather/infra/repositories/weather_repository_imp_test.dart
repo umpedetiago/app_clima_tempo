@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_clima_tempo/src/modules/weather/domain/entities/weather_entity.dart';
-import 'package:app_clima_tempo/src/modules/weather/domain/errors/errors.dart';
+import 'package:app_clima_tempo/src/modules/weather/domain/errors/weather_exception.dart';
 import 'package:app_clima_tempo/src/modules/weather/infra/datasource/weather_datasource.dart';
 import 'package:app_clima_tempo/src/modules/weather/infra/repositories/weather_repository_imp.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,7 +21,7 @@ void main() {
   });
   test('deve retornar um WeatherExceptionDatasource', () async {
     when(() => datasource.getWeather(any()))
-        .thenThrow(WeatherExceptionDatasource('message'));
+        .thenThrow(WeatherExceptionDatasource('message', StackTrace.current));
     final result = await repository.getWeather('vitoria');
     expect(result.fold(id, id), isA<WeatherExceptionDatasource>());
   });
